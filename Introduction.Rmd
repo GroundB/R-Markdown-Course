@@ -14,9 +14,6 @@ output:
       collapsed: yes
       smooth_scroll: yes
     df_print: paged
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 ---
 
 ```{r setup, include=FALSE}
