@@ -1,0 +1,76 @@
+---
+title: "Introduction to R markdown"
+author: "Wenbo Xu"
+date: 'Report created: `r Sys.Date()`'
+output:
+  html_document:
+    number_sections: yes
+    self_contained: yes
+    theme: default
+    highlight: null
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+    df_print: paged
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require("dplyr")
+require("kableExtra")
+require("stringr")
+require("tidyverse")
+require("plotly")
+#You can set working directory to doc directory
+#But this breaks some old Rstudio versions
+#setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+```
+
+# Intro
+
+To show you what you can do with markdown files, I will try to reproduce the figure posted by the Federal Office of Public Health on **COVID-19** cases in Switzerland. Their website is at [https://covid-19-schweiz.bagapps.ch/de-2.html](https://covid-19-schweiz.bagapps.ch/de-1.html){.uri}.
+
+Here is a screen shot of their website app.
+
+```{r dashboard image, out.width = "50%", fig.align = "center"}
+knitr::include_graphics("Dashboard.png")
+```
+
+# Format the data set
+
+Some cantons don't update their cases daily. Therefore a lot of NA entries were made.
+
+I fixed this by filling the in between entries with the nearest next entry and the NA rows before the onset of the virus with 0.
+
+```{r load and sample data, warning=FALSE}
+#load data
+df <- read.csv("covid_19_data_switzerland.csv")
+df[1:10,]
+#Fill missing data
+df <- df %>% fill(AG:CH, .direction = c("down"))
+df[is.na(df)] <- 0
+df
+```
+
+# Plots
+
+We can plot interactive plots with plotly.
+
+```{r, fig.align = "center", warning=FALSE}
+fig <- plot_ly(type = "scatter", mode = "lines")
+
+for (i in 2:ncol(df)) {
+fig <- add_trace(fig, x = df[,1],
+          y = df[,i],
+          data = df,
+          name = colnames(df)[i],
+          type = 'scatter',
+          mode = 'lines')
+}
+fig
+```
