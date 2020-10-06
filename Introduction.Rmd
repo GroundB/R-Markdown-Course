@@ -18,11 +18,11 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library("dplyr")
-library("kableExtra")
-library("stringr")
-library("tidyverse")
-library("plotly")
+require("dplyr")
+require("kableExtra")
+require("stringr")
+require("tidyverse")
+require("plotly")
 #You can set working directory to doc directory
 #But this breaks some old Rstudio versions
 #setwd(dirname(rstudioapi::getSourceEditorContext()$path))
@@ -46,7 +46,7 @@ I fixed this by filling the in between entries with the nearest next entry and t
 
 ```{r load and sample data, warning=FALSE}
 #load data
-df <- read.csv("covid_19_data_switzerland.csv")
+df <- read.csv("covid_19_data_switzerland.csv", sep=";")
 df[1:10,]
 #Fill missing data
 df <- df %>% fill(AG:CH, .direction = c("down"))
