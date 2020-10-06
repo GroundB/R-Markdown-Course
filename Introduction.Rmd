@@ -34,7 +34,6 @@ To show you what you can do with markdown files, I will try to reproduce the fig
 
 Here is a screen shot of their website app.
 
-
 ```{r dashboard image, out.width = "100%", fig.align = "center"}
 knitr::include_graphics("Dashboard.png")
 ```
@@ -42,6 +41,11 @@ knitr::include_graphics("Dashboard.png")
 # Format the data set
 
 Some cantons don't update their cases daily. Therefore a lot of NA entries were made.
+
+This is not the best practice since
+
+1. It might confuse some online trackers
+2. Misleading when plotting the results
 
 I fixed this by filling the in between entries with the nearest next entry and the NA rows before the onset of the virus with 0.
 
