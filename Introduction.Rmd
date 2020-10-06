@@ -18,11 +18,11 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-require("dplyr")
-require("kableExtra")
-require("stringr")
-require("tidyverse")
-require("plotly")
+library("dplyr")
+library("kableExtra")
+library("stringr")
+library("tidyverse")
+library("plotly")
 #You can set working directory to doc directory
 #But this breaks some old Rstudio versions
 #setwd(dirname(rstudioapi::getSourceEditorContext()$path))
@@ -34,7 +34,8 @@ To show you what you can do with markdown files, I will try to reproduce the fig
 
 Here is a screen shot of their website app.
 
-```{r dashboard image, out.width = "50%", fig.align = "center"}
+
+```{r dashboard image, out.width = "100%", fig.align = "center"}
 knitr::include_graphics("Dashboard.png")
 ```
 
@@ -71,3 +72,7 @@ fig <- add_trace(fig, x = df[,1],
 }
 fig
 ```
+
+**Remember**
+
+> Sleep is the cousin of death - Thomas Sackville, Earl of Dorset (1536-1608).
